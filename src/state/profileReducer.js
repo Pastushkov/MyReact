@@ -42,6 +42,6 @@ export let updatePostTextActionCreator = (text) => {
     type: UPDATE_POST_TEXT,
     newText: text,
   };
-};
+  };
 
 export default profileReducer;

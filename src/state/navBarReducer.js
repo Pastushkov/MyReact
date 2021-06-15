@@ -5,6 +5,7 @@ let initialState = {
         { page: "News", to: "/news" },
         { page: "Music", to: "/music" },
         { page: "Settings", to: "/settings" },
+        { page: "Users", to: "/users" },
       ]
 };
 
