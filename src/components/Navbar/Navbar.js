@@ -3,7 +3,7 @@ import style from "./Navbar.module.css";
 
 const Navbar = (props) => {  
   let pagesElements = props.pages.map((p) => (
-    <div className={style.item}>
+    <div className={style.item} key={p.to}>
       <NavLink to={p.to} activeClassName={style.activeLink}>
         {p.page}
       </NavLink>

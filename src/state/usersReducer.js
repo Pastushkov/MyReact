@@ -2,45 +2,13 @@ const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
 const SHOW_MORE = "SHOW-MORE";
 const SET_USERS = "SET-USERS";
+const SET_CURRENT_PAGE = "SET-CURRENT-PAGE";
+const SET_TOTAL_USERS_COUNT = "SET-TOTAL-USERS-COUNT";
 let initialState = {
-  users: [
-/*    {
-      id: 1,
-      photoUrl:
-        "https://lumpics.ru/wp-content/uploads/2017/11/Programmyi-dlya-sozdaniya-avatarok.png",
-      followed: true,
-      fullName: "Dmitry",
-      status: "my own status :)",
-      location: { city: "Minsk", country: "Belarus" },
-    },
-    {
-      id: 2,
-      photoUrl:
-        "https://lumpics.ru/wp-content/uploads/2017/11/Programmyi-dlya-sozdaniya-avatarok.png",
-      followed: false,
-      fullName: "Vasa",
-      status: "never give up",
-      location: { city: "Kyiv", country: "Ukraine" },
-    },
-    {
-      id: 3,
-      photoUrl:
-        "https://lumpics.ru/wp-content/uploads/2017/11/Programmyi-dlya-sozdaniya-avatarok.png",
-      followed: true,
-      fullName: "Serg",
-      status: "just do it :)",
-      location: { city: "Moskow", country: "Russia" },
-    },
-    {
-      id: 4,
-      photoUrl:
-        "https://lumpics.ru/wp-content/uploads/2017/11/Programmyi-dlya-sozdaniya-avatarok.png",
-      followed: false,
-      fullName: "Andry",
-      status: "This is sparta ",
-      location: { city: "Dubai", country: "OAE" },
-    },*/
-  ]
+  users: [],
+  pageSize: 5,
+  totalUsersCount: 0,
+  currentPage: 1,
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -72,7 +40,11 @@ const usersReducer = (state = initialState, action) => {
         }),
       };
     case SET_USERS:
-      return { ...state, users: [...state.users, ...action.users] };
+      return { ...state, users: [...action.users] };
+    case SET_CURRENT_PAGE:
+      return { ...state, currentPage: action.currentPage };
+    case SET_TOTAL_USERS_COUNT:
+      return { ...state, totalUsersCount: action.totalUsersCount };
     case SHOW_MORE:
       return {};
     default:
@@ -89,14 +61,28 @@ export const followAC = (userId) => {
 export const unfollowAC = (userId) => {
   return {
     type: UNFOLLOW,
-    userId,
+    userId: userId,
   };
 };
 
 export const setUsersAC = (users) => {
   return {
     type: SET_USERS,
-    users,
+    users: users
+  };
+};
+
+export const setCurrnetPageAC = (currentPage) => {
+  return {
+    type: SET_CURRENT_PAGE,
+    currentPage: currentPage,
+  };
+};
+
+export const setTotalUsersCountAC = (totalUsersCount) => {
+  return {
+    type: SET_TOTAL_USERS_COUNT,
+    totalUsersCount: totalUsersCount,
   };
 };
 

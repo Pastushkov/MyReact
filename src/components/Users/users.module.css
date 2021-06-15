@@ -1,3 +1,19 @@
 .avatar {
-  width: 5%;
+  width: 110px;
+}
+
+.user {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.selectedPage {
+  font-weight: bold;
+  margin-right: 3px;
+  cursor: pointer;
+}
+
+.page {
+  margin-right: 3px;
+  cursor: pointer;
 }

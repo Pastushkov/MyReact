@@ -1,20 +1,35 @@
-import * as axios from "axios";
+import React from "react";
 import userPhoto from "./../../assets/images/user.png";
 import style from "./users.module.css";
 
 let Users = (props) => {
-  if (props.users.length === 0) {
-    axios
-      .get("https://social-network.samuraijs.com/api/1.0/users")
-      .then((responce) => {
-        props.setUsers(responce.data.items);
-      });
-  }
-
+   debugger;
+  let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+  let pages = [];
+  for (let i = 1; i <= pagesCount; i++) {
+    pages.push(i);
+  } 
   return (
     <div>
+      <div>
+        {pages.map((p) => {
+          return (
+            <span
+              onClick={(e) => {
+                props.onPageChange(p);
+              }}
+              className={
+                props.currentPage === p ? style.selectedPage : style.page
+              }
+            >
+              {p}
+            </span>
+          );
+        })}
+      </div>
+
       {props.users.map((u) => (
-        <div key={u.id}>
+        <div key={u.id} className={style.user}>
           <span>
             <div>
               <img
