@@ -8,7 +8,6 @@ class HeaderContainer extends React.Component {
   componentDidMount() {
     this.props.setToggleFetching(true);
     axios
-
       .get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
         withCredentials: true,
       })
