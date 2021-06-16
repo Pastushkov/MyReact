@@ -2,8 +2,7 @@ import React from "react";
 import userPhoto from "./../../assets/images/user.png";
 import style from "./users.module.css";
 
-let Users = (props) => {
-   debugger;
+let Users = (props) => {   
   let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
   let pages = [];
   for (let i = 1; i <= pagesCount; i++) {
@@ -14,7 +13,7 @@ let Users = (props) => {
       <div>
         {pages.map((p) => {
           return (
-            <span
+            <span key={p}
               onClick={(e) => {
                 props.onPageChange(p);
               }}

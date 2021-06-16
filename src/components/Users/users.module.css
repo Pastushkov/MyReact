@@ -17,3 +17,7 @@
   margin-right: 3px;
   cursor: pointer;
 }
+
+.fetching {
+  width: 100px;
+}
