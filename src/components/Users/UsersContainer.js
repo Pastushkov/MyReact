@@ -10,6 +10,7 @@ import React from "react";
 import Users from "./Users";
 import Preloader from "../common/Preloader/preloader";
 import { widthAuthRedirect } from "../../hoc/widthAuthRedirect";
+import { compose } from "redux";
 
 class UsersContainer extends React.Component {
   componentDidMount() {
@@ -50,12 +51,13 @@ let mapStateToProps = (state) => {
   };
 };
 
-let AuthRedirectComponent = widthAuthRedirect(UsersContainer);
-
-export default connect(mapStateToProps, {
-  follow,
-  unfollow,
-  setCurrentPage,
-  setToggleFollowingProgress,
-  getUsers,
-})(AuthRedirectComponent);
+export default compose(
+  connect(mapStateToProps, {
+    follow,
+    unfollow,
+    setCurrentPage,
+    setToggleFollowingProgress,
+    getUsers,
+  }),
+  widthAuthRedirect
+)(UsersContainer);
