@@ -13,11 +13,10 @@ const App = () => {
       <HeaderContainer />
       <NavbarContainer />
       <div className="wrapper_content">
-        <Route path="/login" render={() => <Login />} />
         <Route path="/dialogs" render={() => <DialogsContainer />} />
-
         <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
         <Route path="/users" render={() => <UsersContainer />} />
+        <Route path="/login" render={() => <Login />} />
       </div>
     </div>
   );

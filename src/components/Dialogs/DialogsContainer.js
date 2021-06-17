@@ -1,17 +1,16 @@
 import { connect } from "react-redux";
 import { addMessage, updateMessageText } from "../../state/dialogsReducer";
 import Dialogs from "./Dialogs";
-
+import { widthAuthRedirect } from "../../hoc/widthAuthRedirect";
 let mapStateToProps = (state) => {
   return {
     dialogsPage: state.dialogsPage,
-    isAuth: state.auth.isAuth
   };
 };
-
+let AuthRedirectComponent = widthAuthRedirect(Dialogs);
 const DialogsContainer = connect(mapStateToProps, {
   addMessage,
   updateMessageText,
-})(Dialogs);
+})(AuthRedirectComponent);
 
 export default DialogsContainer;
