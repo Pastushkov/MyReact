@@ -1,4 +1,4 @@
-import { usersAPI } from "../api/api";
+import { authAPI } from "../api/api";
 
 const SET_USER_DATA = "SET-USER-DATA";
 const TOGGLE_IS_FETCHING = "TOGGLE-IS-FETCHING";
@@ -40,10 +40,10 @@ export const setToggleFetching = (isFetching) => {
   };
 };
 
-export const Auth = () => {
+export const getAuthUserData = () => {
   return (dispatch) => {
     dispatch(setToggleFetching(true));
-    usersAPI.authMe().then((data) => {
+    authAPI.authMe().then((data) => {
       if (data.resultCode === 0) {
         let { id, email, login } = data.data;
         dispatch(setAuthUserData(id, email, login));

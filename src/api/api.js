@@ -26,13 +26,17 @@ export const usersAPI = {
       return responce.data;
     });
   },
-  authMe() {
-    return instance.get(`auth/me`).then((responce) => {
+
+  getUserProfile(userId) {
+    return instance.get(`profile/` + userId).then((responce) => {
       return responce.data;
     });
   },
-  getUserProfile(userId) {
-    return instance.get(`profile/` + userId).then((responce) => {
+};
+
+export const authAPI = {
+  authMe() {
+    return instance.get(`auth/me`).then((responce) => {
       return responce.data;
     });
   },

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { setUserProfile, getUserProfile } from "../../state/profileReducer";
+import { getUserProfile } from "../../state/profileReducer";
 import Profile from "./Profile";
 import Preloader from "../common/Preloader/preloader";
 
@@ -34,6 +34,5 @@ let mapStateToProps = (state) => {
 let withUrlDataContainerComponent = withRouter(ProfileContainer);
 
 export default connect(mapStateToProps, {
-  setUserProfile,
   getUserProfile,
 })(withUrlDataContainerComponent);

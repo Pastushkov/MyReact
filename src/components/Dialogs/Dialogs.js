@@ -16,12 +16,12 @@ const Dialogs = (props) => {
   let newMessage = React.createRef();
 
   let sendMessage = () => {
-    props.sendMessage();
+    props.addMessage();
   };
 
   let onMessageChange = () => {
     let text = newMessage.current.value;
-    props.onMessageChange(text);
+    props.updateMessageText(text);
   };
 
   return (
