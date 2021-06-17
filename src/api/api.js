@@ -16,13 +16,23 @@ export const usersAPI = {
         return responce.data;
       });
   },
-  followUser(id) {
-    return instance.post(`follow/${id}`).then((responce) => {
+  followUser(userId) {
+    return instance.post(`follow/${userId}`).then((responce) => {
       return responce.data;
     });
   },
-  unFollowUser(id) {
-    return instance.delete(`follow/${id}`).then((responce) => {
+  unfollowUser(userId) {
+    return instance.delete(`follow/${userId}`).then((responce) => {
+      return responce.data;
+    });
+  },
+  authMe() {
+    return instance.get(`auth/me`).then((responce) => {
+      return responce.data;
+    });
+  },
+  getUserProfile(userId) {
+    return instance.get(`profile/` + userId).then((responce) => {
       return responce.data;
     });
   },

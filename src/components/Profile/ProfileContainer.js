@@ -1,26 +1,25 @@
-import axios from "axios";
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { setUserProfile } from "../../state/profileReducer";
+import { setUserProfile, getUserProfile } from "../../state/profileReducer";
 import Profile from "./Profile";
+import Preloader from "../common/Preloader/preloader";
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
-    let userId=this.props.match.params.userId
-    if(!userId) userId=17692;
-    axios
-      .get(`https://social-network.samuraijs.com/api/1.0/profile/`+userId)
-      .then((responce) => {
-        this.props.setUserProfile(responce.data);
-      });
+    let userId = this.props.match.params.userId;
+    if (!userId) userId = 17692;
+    this.props.getUserProfile(userId);
   }
 
   render() {
     return (
-      <div>
-        <Profile {...this.props} profile={this.props.profile} />
-      </div>
+      <>
+        {this.props.isFetching ? <Preloader /> : null}
+        <div>
+          <Profile {...this.props} profile={this.props.profile} />
+        </div>
+      </>
     );
   }
 }
@@ -28,6 +27,7 @@ class ProfileContainer extends React.Component {
 let mapStateToProps = (state) => {
   return {
     profile: state.profilePage.profile,
+    isFetching: state.profilePage.isFetching,
   };
 };
 
@@ -35,4 +35,5 @@ let withUrlDataContainerComponent = withRouter(ProfileContainer);
 
 export default connect(mapStateToProps, {
   setUserProfile,
+  getUserProfile,
 })(withUrlDataContainerComponent);

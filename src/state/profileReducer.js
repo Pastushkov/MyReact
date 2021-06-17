@@ -1,13 +1,18 @@
+import { usersAPI } from "../api/api";
+
 const ADD_POST = "ADD-POST";
 const UPDATE_POST_TEXT = "UPDATE-POST-TEXT";
-const SET_USER_PROFILE = 'SET-USER-PROFILE'
+const SET_USER_PROFILE = "SET-USER-PROFILE";
+const TOGGLE_IS_FETCHING = "TOGGLE-IS-FETCHING";
+
 let initialState = {
   posts: [
     { id: 1, message: "Hi, lotus", likeCounts: 0 },
     { id: 2, message: "Hello World", likeCounts: 20 },
   ],
   newPostText: "text",
-  profile: null
+  profile: null,
+  isFetching: false,
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -30,6 +35,8 @@ const profileReducer = (state = initialState, action) => {
     case SET_USER_PROFILE: {
       return { ...state, profile: action.profile };
     }
+    case TOGGLE_IS_FETCHING:
+      return { ...state, isFetching: action.isFetching };
     default:
       return state;
   }
@@ -48,11 +55,28 @@ export let updatePostTextActionCreator = (text) => {
   };
 };
 
-export let setUserProfile = (profile) =>{
-  return{
+export let setUserProfile = (profile) => {
+  return {
     type: SET_USER_PROFILE,
-    profile
-  }
-}
+    profile,
+  };
+};
+
+export const setToggleFetching = (isFetching) => {
+  return {
+    type: TOGGLE_IS_FETCHING,
+    isFetching,
+  };
+};
+
+export const getUserProfile = (userId) => {
+  return (dispatch) => {
+    dispatch(setToggleFetching(true));
+    usersAPI.getUserProfile(userId).then((data) => {
+      dispatch(setUserProfile(data));
+      dispatch(setToggleFetching(false));
+    });
+  };
+};
 
 export default profileReducer;
