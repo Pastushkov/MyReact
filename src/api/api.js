@@ -26,17 +26,33 @@ export const usersAPI = {
       return responce.data;
     });
   },
-
   getUserProfile(userId) {
-    return instance.get(`profile/` + userId).then((responce) => {
-      return responce.data;
-    });
+    return profileAPI.getUserProfile(userId);
   },
 };
 
 export const authAPI = {
   authMe() {
     return instance.get(`auth/me`).then((responce) => {
+      return responce.data;
+    });
+  },
+};
+
+export const profileAPI = {
+  getUserProfile(userId) {
+    return instance.get(`profile/` + userId).then((responce) => {
+      return responce.data;
+    });
+  },
+  getUserStatus(userId) {
+    return instance.get(`profile/status/` + userId).then((responce) => {
+
+      return responce.data;
+    });
+  },
+  updateStatus(status) {
+    return instance.put(`profile/status`, { status }).then((responce) => {
       return responce.data;
     });
   },
