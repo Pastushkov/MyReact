@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import { getUserProfile } from "../../state/profileReducer";
 import Profile from "./Profile";
 import Preloader from "../common/Preloader/preloader";
-import { widthAuthRedirect } from "../../hoc/widthAuthRedirect";
+//import { widthAuthRedirect } from "../../hoc/widthAuthRedirect";
 import { compose } from "redux";
 
 class ProfileContainer extends React.Component {
@@ -38,5 +38,5 @@ export default compose(
     getUserProfile,
   }),
   withRouter,
-  widthAuthRedirect
+ // widthAuthRedirect
 )(ProfileContainer);
