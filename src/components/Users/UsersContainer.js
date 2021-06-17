@@ -9,6 +9,7 @@ import {
 import React from "react";
 import Users from "./Users";
 import Preloader from "../common/Preloader/preloader";
+import { Redirect } from "react-router-dom";
 
 class UsersContainer extends React.Component {
   componentDidMount() {
@@ -20,6 +21,9 @@ class UsersContainer extends React.Component {
   };
 
   render() {
+    if (!this.props.isAuth) {
+      return <Redirect to="/login" />;
+    }
     return (
       <>
         {this.props.isFetching ? <Preloader /> : null}
@@ -30,7 +34,7 @@ class UsersContainer extends React.Component {
           onPageChange={this.onPageChange}
           users={this.props.users}
           follow={this.props.follow}
-          unfollow={this.props.unfollow}        
+          unfollow={this.props.unfollow}
           followingInProgress={this.props.followingInProgress}
         />
       </>
@@ -46,6 +50,7 @@ let mapStateToProps = (state) => {
     currentPage: state.usersPage.currentPage,
     isFetching: state.usersPage.isFetching,
     followingInProgress: state.usersPage.followingInProgress,
+    isAuth: state.auth.isAuth,
   };
 };
 
