@@ -6,22 +6,6 @@ import { reduxForm, Field } from "redux-form";
 import { maxLengthCreator, required } from "../../utils/validators/validators";
 import { Textarea } from "../common/FormControls/FormsControls";
 
-const maxLenght50 = maxLengthCreator(50);
-
-const AddMessageForm = (props) => {
-  return (
-    <form onSubmit={props.handleSubmit}>
-      <Field
-        component={Textarea}
-        name={"newMessageText"}
-        placeholder={"Enter new message"}
-        validate={(required, maxLenght50)}
-      />
-      <button>Send</button>
-    </form>
-  );
-};
-
 const Dialogs = (props) => {
   let dialogElements = props.dialogsPage.dialogs.map((dialog) => (
     <DialogItem key={dialog.id} name={dialog.name} id={dialog.id} />
@@ -33,6 +17,22 @@ const Dialogs = (props) => {
 
   let addNewMessage = (values) => {
     props.addMessage(values.newMessageText);
+  };
+
+  const maxLenght50 = maxLengthCreator(50);
+
+  const AddMessageForm = (props) => {
+    return (
+      <form onSubmit={props.handleSubmit}>
+        <Field
+          component={Textarea}
+          name={"newMessageText"}
+          placeholder={"Enter new message"}
+          validate={[required,maxLenght50]}
+        />
+        <button>Send</button>
+      </form>
+    );
   };
 
   const AddMessageFormRedux = reduxForm({
