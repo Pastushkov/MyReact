@@ -93,6 +93,7 @@ export const getUserProfile = (userId) => {
 export const getUserStatus = (userId) => {
   return (dispatch) => {
     profileAPI.getUserStatus(userId).then((data) => {
+      debugger;
       dispatch(setStatus(data));
     });
   };
@@ -100,9 +101,9 @@ export const getUserStatus = (userId) => {
 
 export const updateUserStatus = (status) => {
   return (dispatch) => {
-    debugger;
     profileAPI.updateStatus(status).then((data) => {
-      if (data.resultCode === 0) dispatch(setStatus(data));
+      debugger;
+      if (data.resultCode === 0) dispatch(setStatus(status));
     });
   };
 };

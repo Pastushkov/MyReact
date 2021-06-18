@@ -47,12 +47,13 @@ export const profileAPI = {
   },
   getUserStatus(userId) {
     return instance.get(`profile/status/` + userId).then((responce) => {
-
+      debugger;
       return responce.data;
     });
   },
   updateStatus(status) {
     return instance.put(`profile/status`, { status }).then((responce) => {
+      debugger;
       return responce.data;
     });
   },
