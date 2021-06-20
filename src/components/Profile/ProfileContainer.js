@@ -45,6 +45,6 @@ export default compose(
     getUserStatus,
     updateUserStatus,
   }),
-  withRouter
-  // widthAuthRedirect
+  withRouter,
+  //widthAuthRedirect
 )(ProfileContainer);
