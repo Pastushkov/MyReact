@@ -14,7 +14,9 @@ import { compose } from "redux";
 class ProfileContainer extends React.Component {
   componentDidMount() {
     let userId = this.props.match.params.userId;
-    if (!userId) userId = 17692;
+    if (!userId) {
+      userId = this.props.autorizedUserId;
+    }
     this.props.getUserProfile(userId);
     this.props.getUserStatus(userId);
   }
@@ -24,7 +26,12 @@ class ProfileContainer extends React.Component {
       <>
         {this.props.isFetching ? <Preloader /> : null}
         <div>
-          <Profile updateUserStatus={this.props.updateStatus} status={this.props.status} {...this.props} profile={this.props.profile} />
+          <Profile
+            updateUserStatus={this.props.updateStatus}
+            status={this.props.status}
+            {...this.props}
+            profile={this.props.profile}
+          />
         </div>
       </>
     );
@@ -36,6 +43,8 @@ let mapStateToProps = (state) => {
     profile: state.profilePage.profile,
     isFetching: state.profilePage.isFetching,
     status: state.profilePage.status,
+    autorizedUserId: state.auth.userId,
+    isAuth: state.auth.isAuth,
   };
 };
 
@@ -45,6 +54,6 @@ export default compose(
     getUserStatus,
     updateUserStatus,
   }),
-  withRouter,
+  withRouter
   //widthAuthRedirect
 )(ProfileContainer);
