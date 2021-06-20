@@ -9,7 +9,7 @@ import {
 import React from "react";
 import Users from "./Users";
 import Preloader from "../common/Preloader/preloader";
-import { widthAuthRedirect } from "../../hoc/widthAuthRedirect";
+//import { widthAuthRedirect } from "../../hoc/widthAuthRedirect";
 import { compose } from "redux";
 
 class UsersContainer extends React.Component {
@@ -59,5 +59,5 @@ export default compose(
     setToggleFollowingProgress,
     getUsers,
   }),
-  widthAuthRedirect
+ // widthAuthRedirect
 )(UsersContainer);

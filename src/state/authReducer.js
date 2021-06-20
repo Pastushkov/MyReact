@@ -43,7 +43,7 @@ export const setToggleFetching = (isFetching) => {
 export const getAuthUserData = () => {
   return (dispatch) => {
     dispatch(setToggleFetching(true));
-    authAPI.authMe().then((data) => {
+   return authAPI.authMe().then((data) => {
       if (data.resultCode === 0) {
         let { id, email, login } = data.data;
         dispatch(setAuthUserData(id, email, login, true));

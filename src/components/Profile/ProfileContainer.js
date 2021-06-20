@@ -7,7 +7,6 @@ import {
   updateUserStatus,
 } from "../../state/profileReducer";
 import Profile from "./Profile";
-import Preloader from "../common/Preloader/preloader";
 //import { widthAuthRedirect } from "../../hoc/widthAuthRedirect";
 import { compose } from "redux";
 
@@ -16,6 +15,9 @@ class ProfileContainer extends React.Component {
     let userId = this.props.match.params.userId;
     if (!userId) {
       userId = this.props.autorizedUserId;
+      if(!userId){
+        this.props.history.push("/login");
+      }
     }
     this.props.getUserProfile(userId);
     this.props.getUserStatus(userId);
@@ -24,7 +26,6 @@ class ProfileContainer extends React.Component {
   render() {
     return (
       <>
-        {this.props.isFetching ? <Preloader /> : null}
         <div>
           <Profile
             updateUserStatus={this.props.updateStatus}
