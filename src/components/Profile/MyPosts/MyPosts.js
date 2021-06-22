@@ -27,8 +27,7 @@ const MyPostsForm = (props) => {
     </form>
   );
 };
-
-const MyPosts = (props) => {
+const MyPosts = React.memo((props) => {
   let postsElements = props.posts.map((p) => (
     <Post key={p.message} message={p.message} likeCounts={p.likeCounts} />
   ));
@@ -48,6 +47,6 @@ const MyPosts = (props) => {
       <div className={style.posts}>{postsElements}</div>
     </div>
   );
-};
+});
 
 export default MyPosts;
