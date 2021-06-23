@@ -9,7 +9,6 @@ import {
 import React from "react";
 import Users from "./Users";
 import Preloader from "../common/Preloader/preloader";
-//import { widthAuthRedirect } from "../../hoc/widthAuthRedirect";
 import { compose } from "redux";
 import {
   getCurrentPage,
@@ -22,11 +21,13 @@ import {
 
 class UsersContainer extends React.Component {
   componentDidMount() {
-    this.props.requestUsers(this.props.currentPage, this.props.pageSize);
+    let {currentPage, pageSize} = this.props;
+    this.props.requestUsers(currentPage, pageSize);
   }
 
   onPageChange = (pageNumber) => {
-    this.props.requestUsers(pageNumber, this.props.pageSize);
+    let {pageSize }= this.props
+    this.props.requestUsers(pageNumber, pageSize);
   };
 
   render() {
@@ -50,7 +51,7 @@ class UsersContainer extends React.Component {
 
 let mapStateToProps = (state) => {
   return {
-    users: getUsers,
+    users: getUsers(state),
     pageSize: getPageSize(state),
     totalUsersCount: getTotalUsersCount(state),
     currentPage: getCurrentPage(state),
@@ -67,5 +68,4 @@ export default compose(
     setToggleFollowingProgress,
     requestUsers,
   })
-  // widthAuthRedirect
 )(UsersContainer);

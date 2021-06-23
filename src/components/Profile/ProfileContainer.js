@@ -7,7 +7,6 @@ import {
   updateUserStatus,
 } from "../../state/profileReducer";
 import Profile from "./Profile";
-//import { widthAuthRedirect } from "../../hoc/widthAuthRedirect";
 import { compose } from "redux";
 
 class ProfileContainer extends React.Component {
@@ -56,5 +55,4 @@ export default compose(
     updateUserStatus,
   }),
   withRouter
-  //widthAuthRedirect
 )(ProfileContainer);

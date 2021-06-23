@@ -13,7 +13,7 @@ let mapDispatchToProps = (dispatch) => {
   return {
     addMessage: (newMessageText) => {
       dispatch(addMessage(newMessageText));
-    }   
+    },
   };
 };
 export default compose(

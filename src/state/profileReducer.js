@@ -5,6 +5,7 @@ const DELETE_POST = "DELETE-POST";
 const SET_USER_PROFILE = "SET-USER-PROFILE";
 const TOGGLE_IS_FETCHING = "TOGGLE-IS-FETCHING";
 const SET_STATUS = "SET-STATUS";
+
 let initialState = {
   posts: [
     { id: 1, message: "Hi, lotus", likeCounts: 0 },
@@ -31,7 +32,7 @@ const profileReducer = (state = initialState, action) => {
     case DELETE_POST: {
       return {
         ...state,
-        posts: state.posts.filter((p) => p.id != action.postId),
+        posts: state.posts.filter((p) => p.id !== action.postId),
       };
     }
     case SET_USER_PROFILE: {
@@ -82,30 +83,21 @@ export const deletePost = (postId) => {
   };
 };
 
-export const getUserProfile = (userId) => {
-  return (dispatch) => {
-    dispatch(setToggleFetching(true));
-    usersAPI.getUserProfile(userId).then((data) => {
-      dispatch(setUserProfile(data));
-      dispatch(setToggleFetching(false));
-    });
-  };
+export const getUserProfile = (userId) => async (dispatch) => {
+  dispatch(setToggleFetching(true));
+  let respoce = await usersAPI.getUserProfile(userId);
+  dispatch(setUserProfile(respoce));
+  dispatch(setToggleFetching(false));
 };
 
-export const getUserStatus = (userId) => {
-  return (dispatch) => {
-    profileAPI.getUserStatus(userId).then((data) => {
-      dispatch(setStatus(data));
-    });
-  };
+export const getUserStatus = (userId) => async (dispatch) => {
+  let responce = await profileAPI.getUserStatus(userId);
+  dispatch(setStatus(responce));
 };
 
-export const updateUserStatus = (status) => {
-  return (dispatch) => {
-    profileAPI.updateStatus(status).then((data) => {
-      if (data.resultCode === 0) dispatch(setStatus(status));
-    });
-  };
+export const updateUserStatus = (status) => async (dispatch) => {
+  let responce = await profileAPI.updateStatus(status);
+  if (responce.resultCode === 0) dispatch(setStatus(status));
 };
 
 export default profileReducer;

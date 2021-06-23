@@ -2,8 +2,8 @@ import style from "./ProfileInfo.module.css";
 import Preloader from "./../../common/Preloader/preloader";
 //import ProfileStatus from "./ProfileStatus";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
-const ProfileInfo = (props) => {
-  if (!props.profile) {
+const ProfileInfo = ({profile,status,updateUserStatus}) => {
+  if (!profile) {
     return <Preloader />;
   }
 
@@ -16,19 +16,19 @@ const ProfileInfo = (props) => {
         />
       </div>
       <div className={style.profile}>
-        <img alt="1" src={props.profile.photos.large} />
-        <div>{props.profile.fullName}</div>
-          <ProfileStatusWithHooks status={props.status} updateUserStatus={props.updateUserStatus}/>
+        <img alt="1" src={profile.photos.large} />
+        <div>{profile.fullName}</div>
+          <ProfileStatusWithHooks status={status} updateUserStatus={updateUserStatus}/>
   
         <div className={style.profile__description}>
-          {props.profile.aboutMe}
+          {profile.aboutMe}
         </div>
         <div className={style.profile__contacts}>
-          {props.profile.contacts.facebook}
+          {profile.contacts.facebook}
         </div>
-        {props.profile.lookingForAJob ? (
+        {profile.lookingForAJob ? (
           <div>
-            I am looking for a job! "{props.profile.lookingForAJobDescription}"
+            I am looking for a job! "{profile.lookingForAJobDescription}"
           </div>
         ) : (
           <div>I am don't looking for a job!</div>
