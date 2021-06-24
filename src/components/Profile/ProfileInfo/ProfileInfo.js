@@ -2,9 +2,17 @@ import style from "./ProfileInfo.module.css";
 import Preloader from "./../../common/Preloader/preloader";
 import ProfileStatus from "./ProfileStatus";
 //import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
-const ProfileInfo = ({profile,status,updateUserStatus}) => {
+import userPhoto from "./../../../assets/images/user.png";
+const ProfileInfo = ({savePhoto, profile, status, updateUserStatus, isOwner }) => {
   if (!profile) {
     return <Preloader />;
+  }
+
+  const onMainPhotoSelected=(e)=>{
+    debugger;
+    if (e.target.files.length){
+      savePhoto(e.target.files[0]);
+    }
   }
 
   return (
@@ -16,13 +24,18 @@ const ProfileInfo = ({profile,status,updateUserStatus}) => {
         />
       </div>
       <div className={style.profile}>
-        <img alt="1" src={profile.photos.large} />
-        <div>{profile.fullName}</div>
-          <ProfileStatus status={status} updateUserStatus={updateUserStatus}/>
-  
-        <div className={style.profile__description}>
-          {profile.aboutMe}
+        <div>
+          <img
+            alt="1"
+            src={profile.photos.large || userPhoto}
+            className={style.avatar}
+          />
         </div>
+        {isOwner && <input type={"file"} onChange={onMainPhotoSelected}></input>}
+        <div>{profile.fullName}</div>
+        <ProfileStatus status={status} updateUserStatus={updateUserStatus} />
+
+        <div className={style.profile__description}>{profile.aboutMe}</div>
         <div className={style.profile__contacts}>
           {profile.contacts.facebook}
         </div>

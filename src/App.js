@@ -2,7 +2,7 @@ import React from "react";
 import { Route } from "react-router";
 import "./App.css";
 import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import store from "./state/redux-store";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import NavbarContainer from "./components/Navbar/NavbarContainer";
@@ -61,11 +61,11 @@ let AppContainer = compose(
 );
 const MainApp = (props) => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Provider store={store}>
         <AppContainer />
       </Provider>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 

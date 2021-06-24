@@ -5,6 +5,7 @@ const DELETE_POST = "DELETE-POST";
 const SET_USER_PROFILE = "SET-USER-PROFILE";
 const TOGGLE_IS_FETCHING = "TOGGLE-IS-FETCHING";
 const SET_STATUS = "SET-STATUS";
+const SAVE_PHOTO_SUCCES = "SAVE-PHOTO-SUCCES";
 
 let initialState = {
   posts: [
@@ -43,6 +44,8 @@ const profileReducer = (state = initialState, action) => {
 
     case SET_STATUS:
       return { ...state, status: action.status };
+    case SAVE_PHOTO_SUCCES:
+      return { ...state, profile: { ...state.profile }, photos: action.photos };
     default:
       return state;
   }
@@ -82,6 +85,12 @@ export const deletePost = (postId) => {
     postId,
   };
 };
+export const savePhotoSucces = (photos) => {
+  return {
+    type: SAVE_PHOTO_SUCCES,
+    photos,
+  };
+};
 
 export const getUserProfile = (userId) => async (dispatch) => {
   dispatch(setToggleFetching(true));
@@ -98,6 +107,11 @@ export const getUserStatus = (userId) => async (dispatch) => {
 export const updateUserStatus = (status) => async (dispatch) => {
   let responce = await profileAPI.updateStatus(status);
   if (responce.resultCode === 0) dispatch(setStatus(status));
+};
+
+export const savePhoto = (file) => async (dispatch) => {
+  let responce = await profileAPI.savePhoto(file);
+  if (responce.resultCode === 0) dispatch(savePhotoSucces(responce.photos));
 };
 
 export default profileReducer;
