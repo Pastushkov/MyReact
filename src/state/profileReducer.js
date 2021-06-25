@@ -1,3 +1,4 @@
+import { stopSubmit } from "redux-form";
 import { profileAPI, usersAPI } from "../api/api";
 
 const ADD_POST = "ADD-POST";
@@ -6,6 +7,7 @@ const SET_USER_PROFILE = "SET-USER-PROFILE";
 const TOGGLE_IS_FETCHING = "TOGGLE-IS-FETCHING";
 const SET_STATUS = "SET-STATUS";
 const SAVE_PHOTO_SUCCES = "SAVE-PHOTO-SUCCES";
+const SAVE_PROFILE_SUCCES = "SAVE-PROFILE-SUCCES";
 
 let initialState = {
   posts: [
@@ -46,6 +48,8 @@ const profileReducer = (state = initialState, action) => {
       return { ...state, status: action.status };
     case SAVE_PHOTO_SUCCES:
       return { ...state, profile: { ...state.profile }, photos: action.photos };
+    case SAVE_PROFILE_SUCCES:
+      return { ...state, profile: action.profile };
     default:
       return state;
   }
@@ -92,6 +96,13 @@ export const savePhotoSucces = (photos) => {
   };
 };
 
+export const saveProfileSucces = (profile) => {
+  return {
+    type: SAVE_PROFILE_SUCCES,
+    profile,
+  };
+};
+
 export const getUserProfile = (userId) => async (dispatch) => {
   dispatch(setToggleFetching(true));
   let respoce = await usersAPI.getUserProfile(userId);
@@ -112,6 +123,14 @@ export const updateUserStatus = (status) => async (dispatch) => {
 export const savePhoto = (file) => async (dispatch) => {
   let responce = await profileAPI.savePhoto(file);
   if (responce.resultCode === 0) dispatch(savePhotoSucces(responce.photos));
+};
+export const saveProfile = (file) => async (dispatch) => {
+  let responce = await profileAPI.saveProfile(file);
+  if (responce.resultCode === 0) dispatch(saveProfileSucces(responce.photos));
+  else {
+    dispatch(stopSubmit("editProfile", { _error: responce.data.messages[0] }));
+    return Promise.reject(responce.data.messages[0]);
+  }
 };
 
 export default profileReducer;
